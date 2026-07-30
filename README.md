@@ -43,7 +43,7 @@ That's `selfHeal`. Your manual change is gone — **to change the cluster, chang
 
 ## Setup
 
-1. `apps/notes-api/deployment.yaml` → replace `OWNER` with your lowercase GitHub username
-   (after the first CI run, CI maintains this line for you).
+1. Leave `apps/notes-api/deployment.yaml` alone — it ships pointing at the course's public image so
+   your first sync works immediately. CI rewrites that line on your first push.
 2. `argocd/application.yaml` → set `repoURL` to your own `notes-gitops` repo.
 3. Apply it once: `kubectl apply -f argocd/application.yaml`
