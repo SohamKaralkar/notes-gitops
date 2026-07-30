@@ -8,7 +8,9 @@
 # notes-application repo builds a new image and rewrites this one line with the
 # new commit SHA — and that commit is the deploy.
 #
-# Set OWNER to your lowercase GitHub username once; after that CI maintains it.
+# It starts on the course's public image so your very FIRST sync works before you
+# have built anything. After your first push to notes-application, CI replaces it
+# with ghcr.io/<you>/notes-api:<sha> and maintains it from then on.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -27,7 +29,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: ghcr.io/OWNER/notes-api:latest    # ← CI rewrites this line on every push
+        image: ghcr.io/sohamkaralkar/notes-api:0.6.0   # ← CI rewrites this line on every push
         ports:
         - containerPort: 8080
         readinessProbe:
