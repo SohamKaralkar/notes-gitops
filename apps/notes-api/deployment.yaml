@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: ghcr.io/sohamkaralkar/notes-api:0.6.0   # ← CI rewrites this line on every push
+        image: ghcr.io/sohamkaralkar/notes-application:3a1a8eff7481917550fac37dca027ccb5b5331e2
         ports:
         - containerPort: 8080
         readinessProbe:
