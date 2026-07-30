@@ -1,0 +1,38 @@
+# ┌──────────────────────────────────────────────────────────────────────────┐
+# │ THIS REPO IS WHAT RUNS IN THE CLUSTER.                                   │
+# │ Argo CD watches this folder and keeps the cluster matching it.           │
+# │ Nobody deploys with kubectl — the cluster follows this file.             │
+# └──────────────────────────────────────────────────────────────────────────┘
+#
+# The `image:` line below is written by CI. Every push to main in the
+# notes-application repo builds a new image and rewrites this one line with the
+# new commit SHA — and that commit is the deploy.
+#
+# Set OWNER to your lowercase GitHub username once; after that CI maintains it.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notes-api
+  labels:
+    app: notes-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notes-api
+  template:
+    metadata:
+      labels:
+        app: notes-api
+    spec:
+      containers:
+      - name: web
+        image: ghcr.io/OWNER/notes-api:latest    # ← CI rewrites this line on every push
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet: { path: /ready, port: 8080 }
+          periodSeconds: 3
+        livenessProbe:
+          httpGet: { path: /healthz, port: 8080 }
+          periodSeconds: 10
