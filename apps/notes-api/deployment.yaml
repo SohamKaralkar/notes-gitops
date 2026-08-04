@@ -18,7 +18,7 @@ metadata:
   labels:
     app: notes-api
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: notes-api
@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: ghcr.io/sohamkaralkar/notes-application:28db24aa19d260aa9a71bbc6aeee424285fcc4d8
+        image: ghcr.io/sohamkaralkar/notes-api:0.6.0   # ← CI rewrites this line on every push
         ports:
         - containerPort: 8080
         readinessProbe:
